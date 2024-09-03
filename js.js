@@ -3,43 +3,57 @@ const users = [
         "id": "323032268",
         "username": "Hazem Habrat",
         "phone": "054343842",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+        "email":"Hazem@gmail.com",
+        "adress": "Cana of Galiel "
     },
     {
         "id": "323032423",
         "username": "Mohmad Mansour",
         "phone": "054567893",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+          "email":"mohmad@gmail.com",
+        "adress": "Kokb-abo-alhija "
     },
     {
         "id": "3230322623",
         "username": "Leo Messi",
         "phone": "0503842424",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+        "email":"Hazem@gmail.com",
+      "adress": "Baraleona" 
     },
     {
-        "id": "32303223",
+        "id": "323032232",
         "username": "Cristano Ronaldo",
         "phone": "050387712",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+        "email":"Hazem@gmail.com",
+      "adress": "Madrid "
     },
     {
         "id": "3230322623",
         "username": "Neymar Jr",
         "phone": "0503877154",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+        "email":"Hazem@gmail.com",
+      "adress": "Paris "
     },
     {
         "id": "323032222",
         "username": "Alex Vidal",
         "phone": "050387714",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+        "email":"Hazem@gmail.com",
+      "adress": "London "
     },
     {
         "id": "3230322641",
         "username": "Luis Suarez",
         "phone": "0503877111",
-        "photo": "image/idma.png"
+        "photo": "image/idma.png",
+        "email":"Hazem@gmail.com",
+      "adress": "Muinch "
     },
 ]
 
@@ -95,18 +109,19 @@ function loadContacts() {
 // Save a contact
 function saveContact() {
     const id = document.getElementById('contactId').value;
-    const name = document.getElementById('contactName').value;
-    const phone = document.getElementById('contactPhone').value;
+    const name = document.getElementById('contactName').value.trim();
+    const phone = document.getElementById('contactPhone').value.trim();
     const imageInput = document.getElementById('contactImage');
     let photo = '';
 
-    // Check for duplicate
-    if (!id) {
-        const isDuplicate = users.some(user => user.username === name && user.phone === phone);
-        if (isDuplicate) {
-            alert('This contact already exists!');
-            return;
-        }
+    // Check for duplicates based on name or phone number
+    const isDuplicate = users.some(user => 
+        (user.username === name || user.phone === phone) && user.id !== id
+    );
+
+    if (isDuplicate) {
+        alert('A contact with the same name or phone number already exists!');
+        return;
     }
 
     if (imageInput.files && imageInput.files[0]) {
@@ -114,11 +129,15 @@ function saveContact() {
         reader.onload = function (e) {
             photo = e.target.result;
             if (id) {
+                // Update existing contact
                 const user = users.find(u => u.id === id);
-                user.username = name;
-                user.phone = phone;
-                user.photo = photo;
+                if (user) {
+                    user.username = name;
+                    user.phone = phone;
+                    user.photo = photo;
+                }
             } else {
+                // Add new contact
                 users.push({
                     id: Date.now().toString(),
                     username: name,
@@ -128,14 +147,18 @@ function saveContact() {
             }
             closePopup();
             loadContacts();
-        }
+        };
         reader.readAsDataURL(imageInput.files[0]);
     } else {
         if (id) {
+            // Update existing contact without changing photo
             const user = users.find(u => u.id === id);
-            user.username = name;
-            user.phone = phone;
+            if (user) {
+                user.username = name;
+                user.phone = phone;
+            }
         } else {
+            // Add new contact with default photo
             users.push({
                 id: Date.now().toString(),
                 username: name,
@@ -154,6 +177,8 @@ function editContact(id) {
     document.getElementById('contactId').value = user.id;
     document.getElementById('contactName').value = user.username;
     document.getElementById('contactPhone').value = user.phone;
+    document.getElementById('Emailinfo').vaule = user.email;
+    document.getElementById('Adress').vaule = user.adress;
     openPopup();
 }
 
@@ -184,6 +209,8 @@ function showContactInfo(id) {
     const user = users.find(u => u.id === id);
     document.getElementById('infoName').textContent = `Name: ${user.username}`;
     document.getElementById('infoPhone').textContent = `Phone: ${user.phone}`;
+    document.getElementById('infoemail').textContent = `Email: ${user.email}`;
+    document.getElementById('infoadress').textContent = `adress ${user.adress}`; 
     openInfoPopup();
 }
 
@@ -238,3 +265,4 @@ function displayFilteredContacts(filteredUsers) {
 
 // Attach search function to search input field
 document.getElementById('searchInput').addEventListener('input', searchContacts);
+
