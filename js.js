@@ -1,3 +1,5 @@
+
+"use strict"; 
 const users = [
     {
         "id": "323032268",
@@ -20,7 +22,7 @@ const users = [
         "username": "Leo Messi",
         "phone": "0503842424",
         "photo": "image/idma.png",
-        "email":"Hazem@gmail.com",
+        "email":"leo@gmail.com",
       "adress": "Baraleona" 
     },
     {
@@ -28,7 +30,7 @@ const users = [
         "username": "Cristano Ronaldo",
         "phone": "050387712",
         "photo": "image/idma.png",
-        "email":"Hazem@gmail.com",
+        "email":"ronaldo@gmail.com",
       "adress": "Madrid "
     },
     {
@@ -36,7 +38,7 @@ const users = [
         "username": "Neymar Jr",
         "phone": "0503877154",
         "photo": "image/idma.png",
-        "email":"Hazem@gmail.com",
+        "email":"neymar@gmail.com",
       "adress": "Paris "
     },
     {
@@ -44,7 +46,7 @@ const users = [
         "username": "Alex Vidal",
         "phone": "050387714",
         "photo": "image/idma.png",
-        "email":"Hazem@gmail.com",
+        "email":"alex@gmail.com",
       "adress": "London "
     },
     {
@@ -52,7 +54,7 @@ const users = [
         "username": "Luis Suarez",
         "phone": "0503877111",
         "photo": "image/idma.png",
-        "email":"Hazem@gmail.com",
+        "email":"luis@gmail.com",
       "adress": "Muinch "
     },
 ]
@@ -170,6 +172,25 @@ function saveContact() {
         loadContacts();
     }
 }
+function searchContacts(e) { // The event here is onKeyUp
+    const searchValue = e.target.value.toLowerCase();
+    const filteredList = users.filter(user => 
+        user.username.toLowerCase().includes(searchValue) || 
+        user.phone.includes(searchValue)
+    );
+
+    // Rebuilding the list with the filtered users
+    displayFilteredContacts(filteredList);
+}
+
+function AddingContactsAfterSearch(contact) {
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username === contact.username && users[i].phone === contact.phone) {
+            addContact(users[i], i);
+        }
+    }
+}
+
 
 // Edit a contact
 function editContact(id) {
@@ -262,6 +283,23 @@ function displayFilteredContacts(filteredUsers) {
     });
     updatePeopleCount();
 }
+
+// Attach search function to search input field
+document.getElementById('searchInput').addEventListener('input', searchContacts);
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    document.querySelector('header').classList.toggle('dark-mode');
+    document.querySelector('.main').classList.toggle('dark-mode');
+    document.querySelector('.container').classList.toggle('dark-mode');
+    document.querySelector('.footer').classList.toggle('dark-mode');
+    document.querySelector('.modal-content').classList.toggle('dark-mode');
+  }
+  
+  // Example button to toggle dark mode
+  document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+  
+
+
 
 // Attach search function to search input field
 document.getElementById('searchInput').addEventListener('input', searchContacts);
