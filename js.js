@@ -109,12 +109,20 @@ function loadContacts() {
 }
 
 // Save a contact
+// Save a contact
 function saveContact() {
     const id = document.getElementById('contactId').value;
     const name = document.getElementById('contactName').value.trim();
     const phone = document.getElementById('contactPhone').value.trim();
     const imageInput = document.getElementById('contactImage');
     let photo = '';
+
+    // Phone number validation: Only allow digits
+    const phoneRegex = /^[0-9]+$/; // Regex to ensure only numbers
+    if (!phoneRegex.test(phone)) {
+        alert('Phone number can only contain digits!');
+        return; // Exit the function if the phone number is invalid
+    }
 
     // Check for duplicates based on name or phone number
     const isDuplicate = users.some(user => 
@@ -172,6 +180,7 @@ function saveContact() {
         loadContacts();
     }
 }
+
 function searchContacts(e) { // The event here is onKeyUp
     const searchValue = e.target.value.toLowerCase();
     const filteredList = users.filter(user => 
@@ -300,7 +309,4 @@ function toggleDarkMode() {
   
 
 
-
-// Attach search function to search input field
-document.getElementById('searchInput').addEventListener('input', searchContacts);
 
