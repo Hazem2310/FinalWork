@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Component</title>
+  <style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  margin: 0; 
+  background-color: #b5d9eb; 
+}
+
+.center-container {
+  text-align: center; 
+}
+
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #e5b2b2;
+  width: 300px; 
+}
+
+.book-cover {
+  width: 200px;
+  height: 300px;
+  background-color: #dff519; 
+  border: 1px solid #4dc80a; 
+  border-radius: 5px;
+  position: relative; /
+}
+
+.book-title-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(165, 228, 123, 0.5); /* Semi-transparent black */
+  color: white;
+  padding: 5px;
+}
+
+.book-title-text {
+  font-size: 18px;
+}
+
+.js-logo-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.js-letter {
+  font-size: 40px;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.scope-closures-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(135, 163, 234, 0.5);
+  color: rgba(68, 11, 7, 0.658);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.book-details {
+  margin-top: 20px;
+}
+
+.book-author {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.book-description {
+  font-size: 16px;
+  color: #2352a9;
+}
+  
+  </style>
+</head>
+<body>
+
+  <div class="book-container">
+    <div class="book-cover">
+      <div class="book-title-overlay">
+        <span class="book-title-text">Book Component By Function</span>
+      </div>
+      <div class="js-logo-container">
+        <span class="js-letter">J</span>
+        <span class="js-letter">S</span>
+      </div>
+      <div class="scope-closures-overlay">
+        <span>Hazem Habrat & Yasmeen Hillo </span>
+      </div>
+    </div>
+
+    <div class="book-details">
+      <p class="book-author">By Kyle Simpson</p>
+      <p class="book-description">Parts of the language that many JavaScript programmers simply avoid.</p>
+    </div>
+  </div>
+
+</body>
+</html>
